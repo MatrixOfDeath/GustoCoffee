@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\LigneFacture" table="Ligne_Facture">
+    <indexes>
+      <index name="FK_Ligne_Facture_idFacture" columns="idFacture"/>
+      <index name="FK_Ligne_Facture_idTva" columns="idTva"/>
+    </indexes>
+    <id name="idlignefacture" type="integer" column="idLigneFacture">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <many-to-one field="idfacture" target-entity="Facture" fetch="LAZY">
+      <join-columns>
+        <join-column name="idFacture" referenced-column-name="idFacture"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idtva" target-entity="Tva" fetch="LAZY">
+      <join-columns>
+        <join-column name="idTva" referenced-column-name="idTva"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

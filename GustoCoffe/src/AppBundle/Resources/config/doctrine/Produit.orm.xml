@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Produit" table="Produit">
+    <indexes>
+      <index name="quantiteEnStock" columns="quantiteEnStock"/>
+      <index name="FK_Produit_idTypeProduit" columns="idTypeProduit"/>
+      <index name="FK_Produit_idStatutProduit" columns="idStatutProduit"/>
+    </indexes>
+    <id name="idproduit" type="integer" column="idProduit">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nomproduit" type="string" column="nomProduit" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="prixproduit" type="float" column="prixProduit" precision="10" scale="0" nullable="true"/>
+    <field name="description" type="text" column="description" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="quantiteenstock" type="integer" column="quantiteEnStock" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="statutproduit" type="integer" column="statutProduit" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="idstatutproduit" target-entity="StatutProduit" fetch="LAZY">
+      <join-columns>
+        <join-column name="idStatutProduit" referenced-column-name="idStatutProduit"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idtypeproduit" target-entity="TypeDeProduit" fetch="LAZY">
+      <join-columns>
+        <join-column name="idTypeProduit" referenced-column-name="idTypeProduit"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

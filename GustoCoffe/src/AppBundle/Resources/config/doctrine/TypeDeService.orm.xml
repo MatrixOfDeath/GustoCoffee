@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\TypeDeService" table="Type_de_Service">
+    <indexes>
+      <index name="nomService" columns="nomService"/>
+    </indexes>
+    <id name="idtypeservice" type="integer" column="idTypeService">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nomservice" type="string" column="nomService" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="description" type="text" column="description" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-many field="idservice" target-entity="Service" inversed-by="idtypeservice" fetch="LAZY">
+      <join-table name="est_de">
+        <join-columns>
+          <join-column name="idTypeService" referenced-column-name="idTypeService"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="idService" referenced-column-name="idService"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Transaction" table="Transaction">
+    <id name="idtransaction" type="integer" column="idTransaction">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="datetrans" type="date" column="dateTrans" nullable="true"/>
+    <field name="statuttransaction" type="integer" column="statutTransaction" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="commentairetransaction" type="text" column="commentaireTransaction" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-many field="idfacture" target-entity="Facture" inversed-by="idtransaction" fetch="LAZY">
+      <join-table name="concerne">
+        <join-columns>
+          <join-column name="idTransaction" referenced-column-name="idTransaction"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="idFacture" referenced-column-name="idFacture"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

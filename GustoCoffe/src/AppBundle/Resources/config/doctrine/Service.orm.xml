@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Service" table="Service">
+    <indexes>
+      <index name="quantiteEnStock" columns="quantiteEnStock"/>
+      <index name="FK_Service_idStatutService" columns="idStatutService"/>
+    </indexes>
+    <id name="idservice" type="integer" column="idService">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nomservice" type="string" column="nomService" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="prixservice" type="float" column="prixService" precision="10" scale="0" nullable="true"/>
+    <field name="description" type="text" column="description" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="quantiteenstock" type="integer" column="quantiteEnStock" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="statutservice" type="integer" column="statutService" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="idstatutservice" target-entity="StatutService" fetch="LAZY">
+      <join-columns>
+        <join-column name="idStatutService" referenced-column-name="idStatutService"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="idtypeservice" target-entity="TypeDeService" mapped-by="idservice" fetch="LAZY"/>
+  </entity>
+</doctrine-mapping>

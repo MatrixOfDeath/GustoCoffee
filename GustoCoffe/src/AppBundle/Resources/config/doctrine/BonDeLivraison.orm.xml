@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\BonDeLivraison" table="Bon_De_Livraison">
+    <indexes>
+      <index name="FK_Bon_De_Livraison_idDemandeProduit" columns="idDemandeProduit"/>
+    </indexes>
+    <id name="idbondelivraison" type="integer" column="idBonDeLivraison">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="datebondelivraison" type="date" column="dateBonDeLivraison" nullable="true"/>
+    <field name="nomfichierbon" type="string" column="nomFichierBon" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="iddemandeproduit" target-entity="DemandeProduit" fetch="LAZY">
+      <join-columns>
+        <join-column name="idDemandeProduit" referenced-column-name="idDemandeProduit"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

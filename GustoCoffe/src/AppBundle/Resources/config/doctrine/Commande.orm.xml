@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Commande" table="Commande">
+    <indexes>
+      <index name="FK_Commande_idPersonne" columns="idPersonne"/>
+      <index name="FK_Commande_idModePaiement" columns="idModePaiement"/>
+      <index name="FK_Commande_idDemandeProduit" columns="idDemandeProduit"/>
+    </indexes>
+    <id name="idcommande" type="integer" column="idCommande">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="datecommande" type="date" column="dateCommande" nullable="false"/>
+    <many-to-one field="iddemandeproduit" target-entity="DemandeProduit" fetch="LAZY">
+      <join-columns>
+        <join-column name="idDemandeProduit" referenced-column-name="idDemandeProduit"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idmodepaiement" target-entity="ModeDePaiement" fetch="LAZY">
+      <join-columns>
+        <join-column name="idModePaiement" referenced-column-name="idModePaiement"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idpersonne" target-entity="Personne" fetch="LAZY">
+      <join-columns>
+        <join-column name="idPersonne" referenced-column-name="idPersonne"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Place" table="Place">
+    <indexes>
+      <index name="nomPlace" columns="nomPlace,statutPlace"/>
+      <index name="FK_Place_idSalle" columns="idSalle"/>
+    </indexes>
+    <id name="idplace" type="integer" column="idPlace">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nomplace" type="string" column="nomPlace" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="statutplace" type="string" column="statutPlace" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="idsalle" target-entity="Salle" fetch="LAZY">
+      <join-columns>
+        <join-column name="idSalle" referenced-column-name="idSalle"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

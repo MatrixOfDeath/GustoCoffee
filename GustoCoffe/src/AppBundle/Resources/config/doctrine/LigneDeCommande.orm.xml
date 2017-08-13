@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\LigneDeCommande" table="Ligne_de_Commande">
+    <indexes>
+      <index name="FK_Ligne_de_Commande_idCommande" columns="idCommande"/>
+      <index name="FK_Ligne_de_Commande_idReservation" columns="idReservation"/>
+    </indexes>
+    <id name="idlignedecommande" type="integer" column="idLigneDeCommande"/>
+    <id name="idcommande" association-key="true"/>
+    <id name="idreservation" association-key="true"/>
+    <field name="quantite" type="integer" column="quantite" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="referenceemploye" type="integer" column="referenceEmploye" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <one-to-one field="idcommande" target-entity="Commande" fetch="LAZY">
+      <join-columns>
+        <join-column name="idCommande" referenced-column-name="idCommande"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="idreservation" target-entity="Reservation" fetch="LAZY">
+      <join-columns>
+        <join-column name="idReservation" referenced-column-name="idReservation"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

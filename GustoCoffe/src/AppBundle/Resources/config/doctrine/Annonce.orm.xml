@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Annonce" table="Annonce">
+    <indexes>
+      <index name="FK_Annonce_idPersonne" columns="idPersonne"/>
+    </indexes>
+    <id name="idannonce" type="integer" column="idAnnonce">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="titre" type="string" column="titre" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="corps" type="text" column="corps" length="65535" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="datecreation" type="date" column="dateCreation" nullable="true"/>
+    <many-to-one field="idpersonne" target-entity="Personne" fetch="LAZY">
+      <join-columns>
+        <join-column name="idPersonne" referenced-column-name="idPersonne"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

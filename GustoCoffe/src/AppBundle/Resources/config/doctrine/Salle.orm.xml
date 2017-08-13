@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Salle" table="Salle">
+    <unique-constraints>
+      <unique-constraint name="nomSalle" columns="nomSalle"/>
+    </unique-constraints>
+    <id name="idsalle" type="integer" column="idSalle">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nomsalle" type="string" column="nomSalle" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="capacitymax" type="integer" column="capacityMax" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="nomplace" type="string" column="nomPlace" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-many field="idmagasin" target-entity="Magasin" mapped-by="idsalle" fetch="LAZY"/>
+  </entity>
+</doctrine-mapping>

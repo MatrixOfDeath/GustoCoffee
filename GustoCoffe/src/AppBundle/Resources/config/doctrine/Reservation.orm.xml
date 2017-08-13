@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Reservation" table="Reservation">
+    <indexes>
+      <index name="FK_Reservation_idFermeture" columns="idFermeture"/>
+      <index name="FK_Reservation_idPersonne" columns="idPersonne"/>
+      <index name="FK_Reservation_idModePaiement" columns="idModePaiement"/>
+      <index name="FK_Reservation_idMagasin" columns="idMagasin"/>
+      <index name="FK_Reservation_idOuverture" columns="idOuverture"/>
+    </indexes>
+    <id name="idreservation" type="integer" column="idReservation">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="datereservation" type="date" column="dateReservation" nullable="true"/>
+    <field name="heuredebut" type="date" column="heureDebut" nullable="true"/>
+    <field name="heurefin" type="date" column="heureFin" nullable="true"/>
+    <field name="remarquereservation" type="text" column="remarqueReservation" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="commentaireclient" type="text" column="commentaireClient" length="255" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="idfermeture" target-entity="FermetureDuCafe" fetch="LAZY">
+      <join-columns>
+        <join-column name="idFermeture" referenced-column-name="idFermeture"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idmagasin" target-entity="Magasin" fetch="LAZY">
+      <join-columns>
+        <join-column name="idMagasin" referenced-column-name="idMagasin"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idmodepaiement" target-entity="ModeDePaiement" fetch="LAZY">
+      <join-columns>
+        <join-column name="idModePaiement" referenced-column-name="idModePaiement"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idouverture" target-entity="JoursOuvert" fetch="LAZY">
+      <join-columns>
+        <join-column name="idOuverture" referenced-column-name="idOuverture"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idpersonne" target-entity="Personne" fetch="LAZY">
+      <join-columns>
+        <join-column name="idPersonne" referenced-column-name="idPersonne"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

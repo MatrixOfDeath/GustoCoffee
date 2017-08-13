@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Produitfourni" table="ProduitFourni">
+    <indexes>
+      <index name="FK_ProduitFourni_idDemandeProduit" columns="idDemandeProduit"/>
+      <index name="FK_ProduitFourni_idProduit_1" columns="idProduit_1"/>
+    </indexes>
+    <id name="idfournisseur2" type="integer" column="idFournisseur_2"/>
+    <id name="iddemandeproduit" association-key="true"/>
+    <id name="idproduit1" association-key="true"/>
+    <field name="idproduit" type="integer" column="idProduit" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="idfournisseur" type="integer" column="idFournisseur" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="iddemande" type="integer" column="idDemande" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <one-to-one field="iddemandeproduit" target-entity="DemandeProduit" fetch="LAZY">
+      <join-columns>
+        <join-column name="idDemandeProduit" referenced-column-name="idDemandeProduit"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="idproduit1" target-entity="Produit" fetch="LAZY">
+      <join-columns>
+        <join-column name="idProduit_1" referenced-column-name="idProduit"/>
+      </join-columns>
+    </one-to-one>
+  </entity>
+</doctrine-mapping>

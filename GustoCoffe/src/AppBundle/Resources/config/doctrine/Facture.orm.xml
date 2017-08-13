@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AppBundle\Entity\Facture" table="Facture">
+    <indexes>
+      <index name="FK_Facture_idCommande" columns="idCommande"/>
+      <index name="FK_Facture_idReservation" columns="idReservation"/>
+    </indexes>
+    <id name="idfacture" type="integer" column="idFacture">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="datefacturation" type="date" column="dateFacturation" nullable="true"/>
+    <field name="nomfichierfacture" type="string" column="nomFichierFacture" length="25" nullable="true">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="idcommande" target-entity="Commande" fetch="LAZY">
+      <join-columns>
+        <join-column name="idCommande" referenced-column-name="idCommande"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="idreservation" target-entity="Reservation" fetch="LAZY">
+      <join-columns>
+        <join-column name="idReservation" referenced-column-name="idReservation"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="idtransaction" target-entity="Transaction" mapped-by="idfacture" fetch="LAZY"/>
+    <many-to-many field="idmodepaiement" target-entity="ModeDePaiement" inversed-by="idfacture" fetch="LAZY">
+      <join-table name="utiliser">
+        <join-columns>
+          <join-column name="idFacture" referenced-column-name="idFacture"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="idModePaiement" referenced-column-name="idModePaiement"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>
